@@ -7,7 +7,9 @@ import random
 WINDOW_WIDTH = 1280
 WINDOW_HEIGHT = 720
 BACKGROUND_COLOR = (0, 0, 0)
-FPS = 60
+TEXT_COLOR = (255, 255, 255)
+GAMEOVER_COLOR = (255, 0, 0)
+SPEED = 60
 GRAVITY = 1
 JUMP_VELOCITY = -20
 DINO_SPRITE = pygame.image.load(os.path.join("assets", "player.png"))
@@ -116,29 +118,29 @@ while running:
 
         score += 1
 
-        FPS += 0.01
+        SPEED += 0.01
 
     # Display
     screen.fill(BACKGROUND_COLOR)
     all_sprites.draw(screen)
-    draw_text(screen, str(score), 30, WINDOW_WIDTH // 2, 50, (255, 255, 255))
+    draw_text(screen, str(score), 30, WINDOW_WIDTH // 2, 50, TEXT_COLOR)
 
     if game_state == HOME_SCREEN:
         all_sprites.add(jarjar)
-        draw_text(screen, "Jar Jar Binks Runner", 64, WINDOW_WIDTH // 2, WINDOW_HEIGHT // 4, (255, 255, 255))
-        draw_text(screen, "Press SPACE to o.p.e.n the game", 22, WINDOW_WIDTH // 2, WINDOW_HEIGHT // 2, (255, 255, 255))
+        draw_text(screen, "Jar Jar Binks Runner", 64, WINDOW_WIDTH // 2, WINDOW_HEIGHT // 4, TEXT_COLOR)
+        draw_text(screen, "Press SPACE to o.p.e.n the game", 22, WINDOW_WIDTH // 2, WINDOW_HEIGHT // 2, TEXT_COLOR)
         gameovermusic.stop()
         homemusic.play(-1)
     elif game_state == GAMEOVER_SCREEN:
-        FPS = 60
+        SPEED = 60
         runningmusic.stop()
         gameovermusic.play(-1)
         all_sprites.empty()
-        draw_text(screen, "Game over", 64, WINDOW_WIDTH // 2, WINDOW_HEIGHT // 4, (255, 0, 0))
-        draw_text(screen, f"Score: {score}", 30, WINDOW_WIDTH // 2, WINDOW_HEIGHT // 2, (255, 255, 255))
-        draw_text(screen, "Press SPACE to r.e.s.t.a.r.t the game", 22, WINDOW_WIDTH // 2, WINDOW_HEIGHT * 3 // 4, (255, 255, 255))
+        draw_text(screen, "Game over", 64, WINDOW_WIDTH // 2, WINDOW_HEIGHT // 4, GAMEOVER_COLOR)
+        draw_text(screen, f"Score: {score}", 30, WINDOW_WIDTH // 2, WINDOW_HEIGHT // 2, TEXT_COLOR)
+        draw_text(screen, "Press SPACE to r.e.s.t.a.r.t the game", 22, WINDOW_WIDTH // 2, WINDOW_HEIGHT * 3 // 4, TEXT_COLOR)
 
     pygame.display.flip()
-    clock.tick(FPS)
+    clock.tick(SPEED)
 
 pygame.quit()
